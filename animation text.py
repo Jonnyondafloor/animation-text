@@ -3,6 +3,7 @@ text = "Hello World!"
 print_delay = 1/60 # 1/{fps} | {seconds} (0.01)
 
 import time
+import os
 
 current_text = ""
 
@@ -20,5 +21,11 @@ while current_text != text:
     else:
         current_text += text[len(current_text)]
         print(current_text)
+
+rows, columns = os.get_terminal_size()
+for _ in range(rows):
+    print(text)
+    time.sleep(print_delay)
+
 
 print('\x1b[?25h')
