@@ -1,5 +1,6 @@
 # your text message here:
 text = "Hello World!"
+print_delay = 1/60 # 1/{fps} | {seconds} (0.01)
 
 import time
 
