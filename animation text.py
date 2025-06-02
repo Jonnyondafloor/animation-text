@@ -11,7 +11,7 @@ print(end='\x1b[?25l', flush=True)
 while current_text != text:
     for char in map(chr, range(32, 127)):
         print(current_text + char)
-        time.sleep(0.01)
+        time.sleep(print_delay)
 
         if char == text[len(current_text)]:
             current_text += char
