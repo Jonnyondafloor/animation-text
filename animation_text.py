@@ -25,7 +25,7 @@ class Animation:
 
         current_text = ''
 
-        print('\x1b[?25h]', flush=True)
+        print(end='\x1b[?25l', flush=True)
         
         while current_text != self.text:
             for char in map(chr, range(32, 127)):
