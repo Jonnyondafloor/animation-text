@@ -26,6 +26,6 @@ while True:
     user_input = input('> ').split(' ')
     command = user_input[0]
     args = user_input[1:]
-    print(args)
+
     if command.lower() == 'animate':
         animation.animate(' '.join(args))
