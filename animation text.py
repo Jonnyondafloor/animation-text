@@ -1,36 +1,56 @@
-# animation config
-text = "Hello World!"
-print_delay = 1/60 # 1/{fps} | {seconds} (0.01)
-hold_time = 5 # seconds to hold text before fading away
-
 import time
 import os
 
-current_text = ""
+class Animation:
+    def __init__(self,
+                 default_text: str = 'Hello world!',
+                 print_delay: float = 1/60,
+                 fade_delay: int = 5
+                 ):
+        """
+        :param default_text: the default text to be animated
+        :param print_delay: time between each "frame"
+        Examples:
+            - 1/{fps}
+            - 0.01
 
-print(end='\x1b[?25l', flush=True)
+        :param fade_delay: time to wait before fading the text away
+        """
+        self.text = default_text
+        self.print_delay = print_delay
+        self.fade_delay = fade_delay
+    
+    def animate(self, text: str | None = None):
+        if text: self.text = text
 
-while current_text != text:
-    for char in map(chr, range(32, 127)):
-        print(current_text + char)
-        time.sleep(print_delay)
+        current_text = ''
 
-        if char == text[len(current_text)]:
-            current_text += char
-            break
+        print('\x1b[?25h]', flush=True)
+        
+        while current_text != self.text:
+            for char in map(chr, range(32, 127)):
+                print(current_text + char)
+                time.sleep(self.print_delay)
 
-    else:
-        current_text += text[len(current_text)]
-        print(current_text)
+                if char == self.text[len(current_text)]:
+                    current_text += char
+                    break
+            
+            else:
+                current_text += self.text[len(current_text)]
+                print(current_text)
+        
+        self._fill(self.text)
+        time.sleep(self.fade_delay)
+        self._fill('')
 
-def fill(text: str):
-    rows = os.get_terminal_size()[0]
-    for _ in range(rows):
-        print(text)
-        time.sleep(print_delay)
+        print('\x1b[?25h')
 
-fill(text)
-time.sleep(hold_time)
-fill('')
-
-print('\x1b[?25h')
+    def _fill(self, text: str):
+        """
+        fills the screen with given text
+        """
+        rows = os.get_terminal_size()[0]
+        for _ in range(rows):
+            print(text)
+            time.sleep(self.print_delay)
