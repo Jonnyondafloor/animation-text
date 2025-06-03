@@ -56,5 +56,11 @@ class Animation:
             time.sleep(self.print_delay)
 
 if __name__ == '__main__':
-    animation = Animation('Hello, World!', 1/60, 2.5)
+    # ----- config -----
+    default_text = 'Hello, World!' # text to be animated if no animation text is given
+    print_delay = 1/60 # delay between each print/"frame". Example: 1/{fps} | 0.01
+    fade_delay = 2.5 # delay before text fades away after animation
+    # ------------------
+
+    animation = Animation(default_text, print_delay, fade_delay)
     animation.animate()
