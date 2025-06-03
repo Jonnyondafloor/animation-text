@@ -54,3 +54,7 @@ class Animation:
         for _ in range(rows):
             print(text)
             time.sleep(self.print_delay)
+
+if __name__ == '__main__':
+    animation = Animation('Hello, World!', 1/60, 2.5)
+    animation.animate()
