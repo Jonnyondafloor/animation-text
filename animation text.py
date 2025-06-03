@@ -1,6 +1,7 @@
-# your text message here:
+# animation config
 text = "Hello World!"
 print_delay = 1/60 # 1/{fps} | {seconds} (0.01)
+hold_time = 5 # seconds to hold text before fading away
 
 import time
 import os
@@ -22,10 +23,14 @@ while current_text != text:
         current_text += text[len(current_text)]
         print(current_text)
 
-rows, columns = os.get_terminal_size()
-for _ in range(rows):
-    print(text)
-    time.sleep(print_delay)
+def fill(text: str):
+    rows = os.get_terminal_size()[0]
+    for _ in range(rows):
+        print(text)
+        time.sleep(print_delay)
 
+fill(text)
+time.sleep(hold_time)
+fill('')
 
 print('\x1b[?25h')
